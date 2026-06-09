@@ -18,4 +18,13 @@ create_local_data() {
   python generator/generate.py local_data
 }
 
+build_reporter() {
+  docker build -t csv-reporter ./reporter
+}
+
+run_reporter() {
+  mkdir -p "$DATA_DIR"
+  docker run --rm -v "$DATA_DIR:/data" csv-reporter
+}
+
 "$@"
