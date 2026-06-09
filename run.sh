@@ -27,4 +27,21 @@ run_reporter() {
   docker run --rm -v "$DATA_DIR:/data" csv-reporter
 }
 
+structure() {
+    find . -not -path '*/.git/*' | sort
+}
+
+clear_data() {
+    rm -f "$DATA_DIR"/*.csv "$DATA_DIR"/*.html
+    echo "data/ cleared"
+}
+
+inside_generator() {
+    docker run --rm -v "$DATA_DIR:/data" csv-generator ls -la /data
+}
+
+inside_reporter() {
+    docker run --rm -v "$DATA_DIR:/data" csv-reporter ls -la /data
+}
+
 "$@"
